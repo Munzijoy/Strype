@@ -1,0 +1,8 @@
+eclipse.preferences.version=1
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.262891244.1356846701/MINGW/delimiter=;
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.262891244.1356846701/MINGW/operation=replace
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.262891244.1356846701/PATH/delimiter=;
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.262891244.1356846701/PATH/operation=replace
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.262891244.1356846701/PATH/value=C\:\\WinARM\\5.4 2016q3\\bin;C\:\\msys64\\usr\\bin
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.262891244.1356846701/append=true
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.262891244.1356846701/appendContributed=true
