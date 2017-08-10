@@ -24,8 +24,12 @@ void HW_RTC::Init(void){
   
   RTC_WaitForLastTask();
   RTC_ClearFlag(RTC_FLAG_RSF);
+
+#if (SET_DEVICE_TIME)
+  RTC_SetCounter(SET_DEVICE_TIME);
+#endif
   
-  RTC_WaitForLastTask();
+//  RTC_WaitForLastTask();
   RCC_RTCCLKConfig(RCC_RTCCLKSource_LSE);
   
   RTC_WaitForLastTask();
@@ -39,6 +43,7 @@ void HW_RTC::Init(void){
   
   RTC_WaitForLastTask();
   RTC_ITConfig(RTC_IT_SEC, ENABLE);
+  NVIC_EnableIRQ(RTC_IRQn);
 
   // warte bis synconisiert
   RTC_WaitForSynchro();

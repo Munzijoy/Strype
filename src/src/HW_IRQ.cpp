@@ -20,30 +20,20 @@
 volatile int32_t gs32SysTickCnt=0;
 
 extern "C" void RTC_IRQHandler(void){
-    trace_puts("RTC Interrupt\n");
         // only catch the second interrupt
     if (RTC_GetITStatus(RTC_IT_SEC) != RESET){
+        Application::DeviceTime::UpdateAndPrintDeviceTime();
         
-        // refer to en.CD00207941.pdf
-        uint32_t u32RtcCounter = RTC_GetCounter();
-        gTimeStruct.tm_hour =  u32RtcCounter / 3600;
-        gTimeStruct.tm_min = (u32RtcCounter % 3600) / 60;
-        gTimeStruct.tm_sec = (u32RtcCounter % 3600) % 60;
-        
-        // Clear the RTC Second interrupt
-        RTC_ClearITPendingBit(RTC_IT_SEC);
-        // Wait until last write operation on RTC registers has finished
+        RTC_ClearITPendingBit(RTC_IT_SEC); // Clear the RTC Second interrupt
         RTC_WaitForLastTask();
-        trace_printf("RTC Interrupt %d: %d:%d:%d", u32RtcCounter, gTimeStruct.tm_hour, gTimeStruct.tm_min, gTimeStruct.tm_sec);
     }
 }
 
 // ISR is called every microsecond
 extern "C" void SysTick_Handler(void){
   Tools::Timing::gvs32SysTickCnt++;
-  volatile uint32_t localSysTick = Tools::Timing::gvs32SysTickCnt; 
-
 #if (DEBUG_SYSTICK_EVERY_X_SECONDS != 0)
+  volatile uint32_t localSysTick = Tools::Timing::gvs32SysTickCnt; 
   if (!(localSysTick % (DEBUG_SYSTICK_EVERY_X_SECONDS * 1000))){ // alle 1 Sekunden
     trace_printf("SysTick Interrupt %d\n", localSysTick);
   }

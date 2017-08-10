@@ -20,46 +20,42 @@
 
 namespace Application {
 
-constexpr char LedWrapper::font8x8_basic[256][8];
+constexpr char LedWrapper::font8x8_basic[128][8];
 
 void LedWrapper::DisplayString(std::string stringToDisplay, uint16_t delay){
   const auto length = stringToDisplay.length();
   assert(length > 0);
-  char letterA[8];
-  char letterB[8];
-  char letterC[8];
-  char letterD[8];
-  char letterE[8];
+  char letter[Driver::MAX7219::NUM_MAX7219_IN_DAISY_CHAIN + 1][8];
   uint64_t text[8];
   uint8_t counter = 4;
   
   do {
-    memcpy(letterA, font8x8_basic[stringToDisplay[counter - 4]], 8 * sizeof(char));
+    memcpy(letter[0], font8x8_basic[static_cast<uint8_t>(stringToDisplay[counter - 4])], 8 * sizeof(char));
     
     if (length > 1){
-      memcpy(letterB, font8x8_basic[stringToDisplay[counter - 3]], 8 * sizeof(char));
+      memcpy(letter[1], font8x8_basic[static_cast<uint8_t>(stringToDisplay[counter - 3])], 8 * sizeof(char));
     }
     
     if (length > 2){
-      memcpy(letterC, font8x8_basic[stringToDisplay[counter - 2]], 8 * sizeof(char));
+      memcpy(letter[2], font8x8_basic[static_cast<uint8_t>(stringToDisplay[counter - 2])], 8 * sizeof(char));
     }
     
     if (length > 3){
-      memcpy(letterD, font8x8_basic[stringToDisplay[counter - 1]], 8 * sizeof(char));
+      memcpy(letter[3], font8x8_basic[static_cast<uint8_t>(stringToDisplay[counter - 1])], 8 * sizeof(char));
     }
     
     if (length > 4){
-      memcpy(letterE, font8x8_basic[stringToDisplay[counter - 0]], 8 * sizeof(char));
+      memcpy(letter[4], font8x8_basic[static_cast<uint8_t>(stringToDisplay[counter - 0])], 8 * sizeof(char));
     }
     
     uint8_t doShift = (length >  Driver::MAX7219::NUM_MAX7219_IN_DAISY_CHAIN) ? 8 : 1; 
     for (uint8_t shift = 0; shift < doShift; shift++){
       for (uint8_t i = 0; i < 8; i++){
-         text[i] = (letterA[i] << (0 * 8));
-         if (length > 1){ text[i] |= (letterB[i] << (1 * 8)); }
-         if (length > 2){ text[i] |= (letterC[i] << (2 * 8)); }
-         if (length > 3){ text[i] |= (letterD[i] << (3 * 8)); }
-         if (length > 4){ text[i] |= (static_cast<uint64_t>(letterE[i]) << (4 * 8)); }
+         text[i] = (letter[0][i] << (0 * 8));
+         if (length > 1){ text[i] |= (letter[1][i] << (1 * 8)); }
+         if (length > 2){ text[i] |= (letter[2][i] << (2 * 8)); }
+         if (length > 3){ text[i] |= (letter[3][i] << (3 * 8)); }
+         if (length > 4){ text[i] |= (static_cast<uint64_t>(letter[4][i]) << (4 * 8)); }
          text[i] >>= shift;
          
          Driver::MAX7219::Send32Bit(static_cast<uint32_t>(text[i]), 8 - i);
@@ -69,8 +65,6 @@ void LedWrapper::DisplayString(std::string stringToDisplay, uint16_t delay){
     
     counter++;
   } while (counter < length);
-
-  trace_printf("Tom has not implemented %s yet\n", __PRETTY_FUNCTION__);
 }
 
 // must be called after initializing the hardware and before using the wrapper 

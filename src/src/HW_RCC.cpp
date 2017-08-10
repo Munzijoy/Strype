@@ -66,6 +66,11 @@ void HW_RCC::Init(void){
         RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1, ENABLE);
         RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
         RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_AFIO | RCC_APB2Periph_SPI1, ENABLE);
+        
+        //SysTick-Timer 1ms
+        RCC_ClocksTypeDef Clocks;
+        RCC_GetClocksFreq(&Clocks);
+        SysTick_Config(Clocks.HCLK_Frequency / 1000 - 1 );  // 1000 Hz ( T=1ms)
        
 }
 
