@@ -13,6 +13,9 @@ RM := rm -rf
 -include system/src/diag/subdir.mk
 -include system/src/cortexm/subdir.mk
 -include system/src/cmsis/subdir.mk
+-include src/Tools/subdir.mk
+-include src/Hardware/subdir.mk
+-include src/Application/subdir.mk
 -include src/subdir.mk
 -include subdir.mk
 -include objects.mk

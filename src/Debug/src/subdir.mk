@@ -4,33 +4,12 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../src/Delay.cpp \
-../src/HW_IRQ.cpp \
-../src/HW_RCC.cpp \
-../src/HW_RTC.cpp \
-../src/HW_SPI.cpp \
-../src/LedWrapper.cpp \
-../src/MAX7219.cpp \
 ../src/main.cpp 
 
 OBJS += \
-./src/Delay.o \
-./src/HW_IRQ.o \
-./src/HW_RCC.o \
-./src/HW_RTC.o \
-./src/HW_SPI.o \
-./src/LedWrapper.o \
-./src/MAX7219.o \
 ./src/main.o 
 
 CPP_DEPS += \
-./src/Delay.d \
-./src/HW_IRQ.d \
-./src/HW_RCC.d \
-./src/HW_RTC.d \
-./src/HW_SPI.d \
-./src/LedWrapper.d \
-./src/MAX7219.d \
 ./src/main.d 
 
 

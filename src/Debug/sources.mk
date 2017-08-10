@@ -27,6 +27,9 @@ CPP_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+src/Application \
+src/Hardware \
+src/Tools \
 src \
 system/src/cmsis \
 system/src/cortexm \
