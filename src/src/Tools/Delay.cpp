@@ -9,14 +9,14 @@
 
 namespace Tools {
 
-volatile uint32_t Timing::gvs32SysTickCnt(0);
+volatile uint32_t Timing::gvu32SysTickCnt(0);
 
 void Timing::WaitMs(uint32_t u32MsToWait){
-    volatile uint32_t u32StartTime = gvs32SysTickCnt;  
+    volatile uint32_t u32StartTime = gvu32SysTickCnt;  
    
     bool bTimeNotExpired = true;
     do {
-        volatile uint32_t actTime = gvs32SysTickCnt;
+        volatile uint32_t actTime = gvu32SysTickCnt;
         bTimeNotExpired = ((u32StartTime + u32MsToWait ) > actTime); 
     } while(bTimeNotExpired);
 }

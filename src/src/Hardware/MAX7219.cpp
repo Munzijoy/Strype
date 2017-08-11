@@ -24,8 +24,8 @@ const std::vector<MAX7219*> MAX7219::_pMAX7219Vector = {
 
 
 
-uint8_t MAX7219::_aBusData[NUM_MAX7219_IN_DAISY_CHAIN][8] = {0, 0};
-uint32_t MAX7219::_aPixel[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+uint8_t MAX7219::_aBusData[NUM_MAX7219_IN_DAISY_CHAIN][NUM_DIGITS] = {0, 0};
+uint32_t MAX7219::_aPixel[NUM_DIGITS] = {0, 0, 0, 0, 0, 0, 0, 0};
     
 void Delay(uint32_t nCount){
   for(; nCount != 0; nCount--){
@@ -66,13 +66,13 @@ void MAX7219::Init(void){
 }
 
 void MAX7219::ClearLEDs(void){
-    for (uint8_t address = 0; address < 8; address++){
+    for (uint8_t address = 0; address < NUM_DIGITS; address++){
         SendDataToAddress(address + 1, 0, _u8NumberInDaisyChain);
     }
 }
 
 void MAX7219::SendDataBlock(const char* pData, const uint8_t u8Address){
-    for (uint8_t address = 0; address < 8; address++){
+    for (uint8_t address = 0; address < NUM_DIGITS; address++){
       GetMax7219ByNumber(u8Address)->SendDataToAddress(address + 1, pData[address], u8Address);
     }
 }
@@ -99,7 +99,7 @@ void MAX7219::SendDataToAddress(uint8_t u8Address, uint8_t u8Data, uint8_t u8Num
     
     WriteDataToBus(DataAndAdressToBusData(u8Data, u8Address));
     
-    if ((u8Address >= 1) && (u8Address <= 8)){
+    if ((u8Address >= 1) && (u8Address <= NUM_DIGITS)){
       _aBusData[u8Num][u8Address - 1] = u8Data;
     }
     

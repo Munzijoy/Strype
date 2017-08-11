@@ -26,45 +26,36 @@ void LedWrapper::DisplayString(std::string stringToDisplay, uint16_t delay){
   const auto length = stringToDisplay.length();
   assert(length > 0);
   char letter[Driver::MAX7219::NUM_MAX7219_IN_DAISY_CHAIN + 1][8];
-  uint64_t text[8];
-  uint8_t counter = 4;
+  uint32_t text[8][(Driver::MAX7219::NUM_MAX7219_IN_DAISY_CHAIN / 8) + 2];
+  uint8_t counter = Driver::MAX7219::NUM_MAX7219_IN_DAISY_CHAIN;
   
   do {
-    memcpy(letter[0], font8x8_basic[static_cast<uint8_t>(stringToDisplay[counter - 4])], 8 * sizeof(char));
-    
-    if (length > 1){
-      memcpy(letter[1], font8x8_basic[static_cast<uint8_t>(stringToDisplay[counter - 3])], 8 * sizeof(char));
-    }
-    
-    if (length > 2){
-      memcpy(letter[2], font8x8_basic[static_cast<uint8_t>(stringToDisplay[counter - 2])], 8 * sizeof(char));
-    }
-    
-    if (length > 3){
-      memcpy(letter[3], font8x8_basic[static_cast<uint8_t>(stringToDisplay[counter - 1])], 8 * sizeof(char));
-    }
-    
-    if (length > 4){
-      memcpy(letter[4], font8x8_basic[static_cast<uint8_t>(stringToDisplay[counter - 0])], 8 * sizeof(char));
+   for (uint8_t driver = 0; driver < Driver::MAX7219::NUM_MAX7219_IN_DAISY_CHAIN + 1; driver++){
+      memcpy(letter[driver], font8x8_basic[static_cast<uint8_t>(stringToDisplay[counter - (Driver::MAX7219::NUM_MAX7219_IN_DAISY_CHAIN  - driver)])], 8 * sizeof(char));
     }
     
     uint8_t doShift = (length >  Driver::MAX7219::NUM_MAX7219_IN_DAISY_CHAIN) ? 8 : 1; 
     for (uint8_t shift = 0; shift < doShift; shift++){
-      for (uint8_t i = 0; i < 8; i++){
-         text[i] = (letter[0][i] << (0 * 8));
-         if (length > 1){ text[i] |= (letter[1][i] << (1 * 8)); }
-         if (length > 2){ text[i] |= (letter[2][i] << (2 * 8)); }
-         if (length > 3){ text[i] |= (letter[3][i] << (3 * 8)); }
-         if (length > 4){ text[i] |= (static_cast<uint64_t>(letter[4][i]) << (4 * 8)); }
-         text[i] >>= shift;
+      for (uint8_t digit = 0; digit < Driver::MAX7219::NUM_DIGITS; digit++){
+        memset(&text, 0, sizeof(text));
+        for (uint8_t letterNum = 0; letterNum < Driver::MAX7219::NUM_MAX7219_IN_DAISY_CHAIN + 1; letterNum++){
+          if (length > letterNum){
+              text[digit][letterNum >> 2] |= (letter[letterNum][digit] << ((letterNum - (4*(letterNum >> 2))) * 8));
+          }
+        }
+        
+        uint64_t test = (static_cast<uint64_t>(text[digit][1]) << 32ULL) | text[digit][0];
+        test >>= shift;
          
-         Driver::MAX7219::Send32Bit(static_cast<uint32_t>(text[i]), 8 - i);
+         Driver::MAX7219::Send32Bit(static_cast<uint32_t>(test), 8 - digit);
       }
       ((shift == 0) && (counter == 4)) ? Tools::Timing::WaitMs(1000) : Tools::Timing::WaitMs(delay);
     }
     
     counter++;
   } while (counter < length);
+  
+  Tools::Timing::WaitMs(1000);
 }
 
 // must be called after initializing the hardware and before using the wrapper 

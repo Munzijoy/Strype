@@ -70,12 +70,13 @@ namespace Driver {
             void Init(void);
             
             static const uint8_t NUM_MAX7219_IN_DAISY_CHAIN = 4;
+            static const uint8_t NUM_DIGITS = 8;
             static const std::vector<MAX7219*> _pMAX7219Vector;
             
             const uint8_t _u8NumberInDaisyChain;
-            static uint8_t _aBusData[NUM_MAX7219_IN_DAISY_CHAIN][8];
+            static uint8_t _aBusData[NUM_MAX7219_IN_DAISY_CHAIN][NUM_DIGITS];
             
-            static uint32_t _aPixel[8];
+            static uint32_t _aPixel[NUM_DIGITS];
 
 };
 }

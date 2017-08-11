@@ -6,13 +6,13 @@
  */
 
 #include "HW_RTC.h"
-//#include "stm32f10x_nvic.h"
 #include "stm32f10x_pwr.h"
 #include "stm32f10x_rcc.h"
 #include "stm32f10x_bkp.h"
 #include "stm32f10x_rtc.h"
 #include "DeviceTime.h"
 #include "misc.h"
+#include <stdlib.h>
 
 namespace Hardware {
 
@@ -21,6 +21,9 @@ void HW_RTC::Init(void){
   RCC_APB1PeriphClockCmd(RCC_APB1Periph_BKP | RCC_APB1Periph_PWR, ENABLE);
   PWR_BackupAccessCmd(ENABLE);
 //  RCC_BackupResetCmd(DISABLE);
+  
+  // set time zone
+  putenv((char*)TIMEZONE);
   
   RTC_WaitForLastTask();
   RTC_ClearFlag(RTC_FLAG_RSF);
