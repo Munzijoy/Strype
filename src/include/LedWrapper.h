@@ -24,12 +24,18 @@ public:
     // sets the color for all leds of the panel from the outside
     static void InitLedWrapper(void);
     static void DisplayString(std::string stringToDisplay, uint16_t delay);
+    static const char* Get8x8Character(const char character){
+      return font8x8_basic[static_cast<uint8_t>(character - FONT_OFFSET)]; 
+    }
+    
+    static bool IsValidCharacter(char c){ return (c > FONT_OFFSET) && (c < 128); }
 private:
     static void ClearPanel(void);
     
+    static const uint8_t FONT_OFFSET = 0;
     // Constant: font8x8_basic
 // Contains an 8x8 font map for unicode points U+0000 - U+007F (basic latin)
-public: static constexpr char font8x8_basic[128][8] = {
+    static constexpr char font8x8_basic[128 - FONT_OFFSET][8] = {
 {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00},  // 0x00
 {0x7E,0x81,0xA5,0x81,0xBD,0x99,0x81,0x7E},  // 0x01
 {0x7E,0xFF,0xDB,0xFF,0xC3,0xE7,0xFF,0x7E},  // 0x02

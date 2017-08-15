@@ -5,13 +5,13 @@
  *      Author: t.linz
  */
 
-#include "Delay.h"
+#include "Wait.h"
 
 namespace Tools {
 
-volatile uint32_t Timing::gvu32SysTickCnt(0);
+volatile uint32_t Wait::gvu32SysTickCnt(0);
 
-void Timing::WaitMs(uint32_t u32MsToWait){
+void Wait::WaitMs(uint32_t u32MsToWait){
     volatile uint32_t u32StartTime = gvu32SysTickCnt;  
    
     bool bTimeNotExpired = true;

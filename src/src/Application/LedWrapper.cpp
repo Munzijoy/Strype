@@ -12,15 +12,15 @@
 #include <assert.h>
 #include <sstream>
 #include <string.h>
+#include <Wait.h>
 #include "diag/Trace.h"
 
 #include "LedWrapper.h"
 #include "MAX7219.h"
-#include "Delay.h"
 
 namespace Application {
 
-constexpr char LedWrapper::font8x8_basic[128][8];
+constexpr char LedWrapper::font8x8_basic[128 - FONT_OFFSET][8];
 
 void LedWrapper::DisplayString(std::string stringToDisplay, uint16_t delay){
   const auto length = stringToDisplay.length();
@@ -31,7 +31,7 @@ void LedWrapper::DisplayString(std::string stringToDisplay, uint16_t delay){
   
   do {
    for (uint8_t driver = 0; driver < Driver::MAX7219::NUM_MAX7219_IN_DAISY_CHAIN + 1; driver++){
-      memcpy(letter[driver], font8x8_basic[static_cast<uint8_t>(stringToDisplay[counter - (Driver::MAX7219::NUM_MAX7219_IN_DAISY_CHAIN  - driver)])], 8 * sizeof(char));
+      memcpy(letter[driver], Get8x8Character(static_cast<uint8_t>(stringToDisplay[counter - (Driver::MAX7219::NUM_MAX7219_IN_DAISY_CHAIN  - driver)])), 8 * sizeof(char));
     }
     
     uint8_t doShift = (length >  Driver::MAX7219::NUM_MAX7219_IN_DAISY_CHAIN) ? 8 : 1; 
@@ -49,13 +49,13 @@ void LedWrapper::DisplayString(std::string stringToDisplay, uint16_t delay){
          
          Driver::MAX7219::Send32Bit(static_cast<uint32_t>(test), 8 - digit);
       }
-      ((shift == 0) && (counter == 4)) ? Tools::Timing::WaitMs(1000) : Tools::Timing::WaitMs(delay);
+      ((shift == 0) && (counter == 4)) ? Tools::Wait::WaitSec(1) : Tools::Wait::WaitMs(delay);
     }
     
     counter++;
   } while (counter < length);
   
-  Tools::Timing::WaitMs(1000);
+  Tools::Wait::WaitSec(1);
 }
 
 // must be called after initializing the hardware and before using the wrapper 

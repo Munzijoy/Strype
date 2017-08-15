@@ -11,8 +11,8 @@
 #include "HW_SPI.h"
 #include <stdlib.h>
 #include <assert.h>
+#include <Wait.h>
 #include "diag/Trace.h"
-#include <Delay.h>
 
 bool gDebugNow = false;
 

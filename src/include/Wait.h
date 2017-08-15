@@ -12,7 +12,7 @@
 
 namespace Tools {
 
-class Timing {
+class Wait {
 public:
   static volatile uint32_t gvu32SysTickCnt;  
   static void WaitMs(uint32_t u32MsToWait);
