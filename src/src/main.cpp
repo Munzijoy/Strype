@@ -9,6 +9,7 @@
 #include "MAX7219.h"
 #include "DeviceTime.h"
 #include "ESP8266.h"
+#include "UserSettings.h"
 
 
 // ----- main() ---------------------------------------------------------------
@@ -36,6 +37,11 @@ main(int /*argc*/, char* /*argv[]*/){
     Hardware::HW_USART::Init();
    
     Application::LedWrapper::InitLedWrapper();
+    Application::UserSettings::Init();
+
+#if DEVELOP
+    Application::UserSettings::TestUserSettings();
+#endif
     
     trace_printf("Entering main loop\n");
     while (1){
@@ -47,7 +53,9 @@ main(int /*argc*/, char* /*argv[]*/){
 // ===================================================================      
 //        Application::LedWrapper::DisplayString(Application::DeviceTime::GetDeviceDateAndTimeString(), 20);
 // ===================================================================
-          Hardware::ESP8266::Reset();
+//          Hardware::ESP8266::Reset();
+// ===================================================================
+      
     }
 }
 
