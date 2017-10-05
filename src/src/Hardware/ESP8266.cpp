@@ -6,15 +6,19 @@
  */
 
 #include "ESP8266.h"
-#include <string>
 #include "HW_USART.h"
+#include "Wait.h"
 
 namespace Hardware {
 
-bool ESP8266::Reset(void){
-  std::string resetString = "AT+RST\n";
-  HW_USART::Transmit(reinterpret_cast<uint8_t*>(const_cast<char*>(resetString.c_str())), resetString.length());
-  return true;
+void ESP8266::SendCommand(std::string cmd){
+  cmd.append("\r\r\n");
+  HW_USART::Transmit(reinterpret_cast<uint8_t*>(const_cast<char*>(cmd.c_str())), cmd.length());
+  Tools::Wait::WaitSec(2);
+}
+
+void ESP8266::Test(void){
+  SendCommand("AT+GMR");
 }
 }
 

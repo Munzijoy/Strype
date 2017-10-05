@@ -11,6 +11,8 @@
 #include "ESP8266.h"
 #include "UserSettings.h"
 
+#include <stdlib.h>
+#include <signal.h>
 
 // ----- main() ---------------------------------------------------------------
 
@@ -24,6 +26,16 @@ struct tm* Application::DeviceTime::gTimeStruct(NULL);
 #if DEBUG_DEVICE_TIME
 bool Application::DeviceTime::bMinuteHasPassed = true;
 #endif
+
+extern "C" void _exit(int code){
+#if !defined(DEBUG)
+  __reset_hardware();
+#endif
+  trace_printf("%s!!!!! Cat ass trophy number %d!!!!", __PRETTY_FUNCTION__, code);
+  Application::LedWrapper::DisplayString(__PRETTY_FUNCTION__);
+  Application::LedWrapper::DisplayString("Cat ass trophy");
+  for(;;){}
+}
 
 int
 main(int /*argc*/, char* /*argv[]*/){
@@ -40,7 +52,8 @@ main(int /*argc*/, char* /*argv[]*/){
     Application::UserSettings::Init();
 
 #if DEVELOP
-    Application::UserSettings::TestUserSettings();
+//    Application::UserSettings::TestUserSettings();
+//    Application::UserSettings::Init();
 #endif
     
     trace_printf("Entering main loop\n");
@@ -52,10 +65,9 @@ main(int /*argc*/, char* /*argv[]*/){
 //        }
 // ===================================================================      
 //        Application::LedWrapper::DisplayString(Application::DeviceTime::GetDeviceDateAndTimeString(), 20);
+        Hardware::ESP8266::Test();
 // ===================================================================
-//          Hardware::ESP8266::Reset();
-// ===================================================================
-      
+
     }
 }
 

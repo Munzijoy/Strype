@@ -25,6 +25,7 @@ constexpr char LedWrapper::font8x8_basic[128 - FONT_OFFSET][8];
 void LedWrapper::DisplayString(std::string stringToDisplay, uint16_t delay){
   const auto length = stringToDisplay.length();
   assert(length > 0);
+  trace_printf("%s with string %s\n", __PRETTY_FUNCTION__, stringToDisplay.c_str());
   char letter[Driver::MAX7219::NUM_MAX7219_IN_DAISY_CHAIN + 1][8];
   uint32_t text[8][(Driver::MAX7219::NUM_MAX7219_IN_DAISY_CHAIN / 8) + 2];
   uint8_t counter = Driver::MAX7219::NUM_MAX7219_IN_DAISY_CHAIN;

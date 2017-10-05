@@ -19,11 +19,14 @@
     #define NO_DEBUGGER 0 // only map file debugging
     #define DEBUG_SYSTICK_EVERY_X_SECONDS 0 // Print Debug info every x seconds, or no output if 0
     #define DEBUG_DEVICE_TIME 1 // prints the device time every minute
-    #define SET_DEVICE_TIME 0   // sets the device time to this timestamp. Reboot required after startup
+    #define SET_DEVICE_TIME 0    // sets the device time to this timestamp. Reboot required after startup
 
 
 
 // ==========================================================
+
+void DisDisDisDisplayErrorHandler(void);
+
 
 #endif
 

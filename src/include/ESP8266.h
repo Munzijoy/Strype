@@ -8,10 +8,13 @@
 #ifndef HARDWARE_ESP8266_H_
 #define HARDWARE_ESP8266_H_
 
+#include <string>
+
 namespace Hardware {
 class ESP8266 {
 public:
-  static bool Reset(void);
+  static void SendCommand(std::string cmd);
+  static void Test(void);
 };
 }
 

@@ -23,7 +23,7 @@ class LedWrapper {
 public:
     // sets the color for all leds of the panel from the outside
     static void InitLedWrapper(void);
-    static void DisplayString(std::string stringToDisplay, uint16_t delay);
+    static void DisplayString(std::string stringToDisplay, uint16_t delay = 20);
     static const char* Get8x8Character(const char character){
       return font8x8_basic[static_cast<uint8_t>(character - FONT_OFFSET)]; 
     }
