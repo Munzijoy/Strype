@@ -11,11 +11,9 @@
 #include "DeviceTime.h"
 #include "diag/Trace.h"
 #include "Develop.h"
+#include "ESP8266.h"
 #include <cstring>
 #include <bits/stl_algo.h>
-
-// Real Time Clock Interrupt handler, catching the secound interrupt only
-volatile int32_t gs32SysTickCnt=0;
 
 extern "C" void RTC_IRQHandler(void){
     // only catch the second interrupt
@@ -40,25 +38,7 @@ extern "C" void SysTick_Handler(void){
 
 extern "C" void USART1_IRQHandler(void){
   if (USART_GetFlagStatus(USART1, USART_SR_RXNE) != RESET){
-    static std::string rxString;
-    char rxCharacter = static_cast<char>(USART_ReceiveData(USART1));
-    rxString += rxCharacter;
-    if ((rxString.find("OK") != std::string::npos) ||
-        (rxString.find("ERROR") != std::string::npos)){
-//        rxString.erase(std::remove(rxString.begin(), rxString.end(), '\n'), rxString.end());
-//        rxString.erase(std::remove(rxString.begin(), rxString.end(), '\r'), rxString.end());
-        if (rxString[0] == '\r' || rxString[0] == '\n'){
-          rxString = rxString.erase(0, 1);
-        }
-        if (rxString[0] == '\r' || rxString[0] == '\n'){
-          rxString = rxString.erase(0, 1);
-        }
-        const char* myString = rxString.c_str();
-        trace_puts(myString);
-        rxString.clear();
-    }
-    
-//    USART_ClearITPendingBit(USART1, USART_IT_RXNE);
-//    USART_ClearFlag(USART1, USART_FLAG_RXNE);
+    (const_cast<std::string&>(Hardware::ESP8266::m_UsartRxString)) += (static_cast<char>(USART_ReceiveData(USART1)));
+    USART_ClearITPendingBit(USART1, USART_IT_RXNE);
   }
 }
