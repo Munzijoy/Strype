@@ -5,7 +5,7 @@
  *      Author: t.linz
  */
 
-#include "ESP8266.h"
+#include <MyESP8266.h>
 #include "HW_USART.h"
 #include "diag/Trace.h"
 #include "diag/Trace.h"

@@ -1,15 +1,19 @@
-#include "Wait.h"
-#include "ReadSemihosting.h"
 #include "HW_RCC.h"
 #include "HW_SPI.h"
 #include "HW_RTC.h"
 #include "HW_USART.h"
+
 #include "diag/Trace.h"
+#include "ReadSemihosting.h"
+
 #include "LedWrapper.h"
 #include "MAX7219.h"
 #include "DeviceTime.h"
-#include "ESP8266.h"
 #include "UserSettings.h"
+#include "MyESP8266.h"
+#include "Wait.h"
+
+#include "Develop.h"
 
 #include <stdlib.h>
 #include <signal.h>
@@ -53,45 +57,39 @@ main(int /*argc*/, char* /*argv[]*/){
    
     Application::LedWrapper::InitLedWrapper();
     Application::UserSettings::Init();
-
-#if DEVELOP
-//    Application::UserSettings::TestUserSettings();
-//    Application::UserSettings::Init();
-#endif
+    
+    Application::LedWrapper::DisplayString(Application::DeviceTime::GetDeviceDateAndTimeString(), 20);
     
     trace_printf("Entering main loop\n");
     
-//    Hardware::ESP8266::ExitTransmissionMode();
-//    Hardware::ESP8266::SendCommand("AT+RST"); // reset
-//    Hardware::ESP8266::SendCommand("AT"); // test command
-//    Hardware::ESP8266::SendCommand("AT+CWMODE=1"); // client mode (not access point mode)
-//    Hardware::ESP8266::SendCommand("AT+CIPMUX=0"); // single connection mode
-////        Hardware::ESP8266::SendCommand("AT+RST"); // reset device
-////        Hardware::ESP8266::SendCommand("AT+CWLAP"); //list available access points
-////        Hardware::ESP8266::SendCommand("AT+CWJAP=\"ES_8102\",\"skilager\"");
-//    Hardware::ESP8266::SendCommand("AT+CIPMODE=0"); // unvarnished transmission mode
-//    Hardware::ESP8266::SendCommand("AT+CIPCLOSE");
-//    Hardware::ESP8266::SendCommand("AT+CIPSTART=\"TCP\",\"api.openweathermap.org\",80", 2000); // create TCP connection
-//    Hardware::ESP8266::SendGetRequest("GET /data/2.5/weather?lat=51.390127&lon=12.334344&APPID=cac07d5e5deaaea2640bff05a34076ad HTTP/1.0");
-//    trace_printf("Exiting Transmission mode...\n");
-////    Hardware::ESP8266::ExitTransmissionMode();
-//    Hardware::ESP8266::SendCommand("AT"); // test command
     
     while (1){
-	vTaskStartScheduler();
-// ===================================================================
-//        std::string myString = ReadString();
-//        if (myString.length() > 0){
-//              Application::LedWrapper::DisplayString(myString, 20);
-//        }
-// ===================================================================      
-//        Application::LedWrapper::DisplayString(Application::DeviceTime::GetDeviceDateAndTimeString(), 20);
-        
-// ===================================================================
-
+        vTaskStartScheduler();
     }
 }
 
+extern "C"{
+void vApplicationStackOverflowHook( TaskHandle_t pxTask, char *pcTaskName )
+{
+	/* This function will get called if a task overflows its stack.   If the
+	parameters are corrupt then inspect pxCurrentTCB to find which was the
+	offending task. */
+
+	( void ) pxTask;
+	( void ) pcTaskName;
+
+	for( ;; );
+}
+/*-----------------------------------------------------------*/
+
+void assert_failed( unsigned char *pucFile, unsigned long ulLine )
+{
+	( void ) pucFile;
+	( void ) ulLine;
+
+	for( ;; );
+}
+}
 
 #pragma GCC diagnostic pop
 

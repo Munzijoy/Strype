@@ -11,9 +11,9 @@
 #include "DeviceTime.h"
 #include "diag/Trace.h"
 #include "Develop.h"
-#include "ESP8266.h"
 #include <cstring>
 #include <bits/stl_algo.h>
+#include <MyESP8266.h>
 
 extern "C" void RTC_IRQHandler(void){
     // only catch the second interrupt

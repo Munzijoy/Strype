@@ -27,9 +27,9 @@ CPP_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-FreeRTOS/Source \
-FreeRTOS/Source/portable/GCC/ARM_CM3 \
-FreeRTOS/Source/portable/MemMang \
+freertos/FreeRTOS/Source \
+freertos/FreeRTOS/Source/portable/GCC/ARM_CM3 \
+freertos/FreeRTOS/Source/portable/MemMang \
 src/Application \
 src/Hardware \
 src/Tools \

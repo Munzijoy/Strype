@@ -1,3 +1,9 @@
 [submodule "src/esp-open-rtos/esp-open-rtos"]
 	path = src/esp-open-rtos/esp-open-rtos
 	url = https://github.com/SuperHouse/esp-open-rtos.git
+[submodule "src/xtensa-toolchain"]
+	path = src/xtensa-toolchain
+	url = https://github.com/vowstar/xtensa-toolchain.git
+[submodule "src/freertos"]
+	path = src/freertos
+	url = https://github.com/cjlano/freertos.git

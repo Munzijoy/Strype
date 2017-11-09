@@ -1,12 +1,12 @@
 /*
- * ESP8266.h
+ * MyESP8266.h
  *
  *  Created on: 15.08.2017
  *      Author: t.linz
  */
 
-#ifndef HARDWARE_ESP8266_H_
-#define HARDWARE_ESP8266_H_
+#ifndef HARDWARE_MYESP8266_H_
+#define HARDWARE_MYESP8266_H_
 
 #include <string>
 #include "Wait.h"
@@ -35,4 +35,4 @@ private:
 }
 
 
-#endif /* HARDWARE_ESP8266_H_ */
+#endif /* HARDWARE_MYESP8266_H_ */
