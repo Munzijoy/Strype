@@ -13,3 +13,6 @@
 [submodule "src/mbed-os"]
 	path = src/mbed-os
 	url = https://github.com/ARMmbed/mbed-os.git
+[submodule "date"]
+	path = date
+	url = https://github.com/HowardHinnant/date.git

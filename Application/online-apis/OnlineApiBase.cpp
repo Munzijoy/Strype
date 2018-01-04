@@ -22,7 +22,7 @@ void OnlineApiBase::GetJsonData(const char* startString){
     }
   }
   
-  Application::LedWrapper::DisplayString("wait");
+  Application::LedWrapper::DisplayString("Please wait");
   
   string resultString;
   

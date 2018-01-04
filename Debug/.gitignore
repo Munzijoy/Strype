@@ -1,0 +1,9 @@
+/Application/
+/esp8266-driver/
+/makefile
+/mbed-os/
+/objects.mk
+/rapidjson/
+/sources.mk
+/subdir.mk
+/date/

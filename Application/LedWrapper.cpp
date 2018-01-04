@@ -20,6 +20,17 @@ namespace Application {
 
 constexpr char LedWrapper::font8x8_basic[128 - FONT_OFFSET][8];
 
+void LedWrapper::DisplayStringSimple(std::string stringToDisplay){
+  assert(stringToDisplay.length());
+  
+    for (uint8_t letter = 0; letter < stringToDisplay.length(); letter++){
+      const char* pCharData = Get8x8Character(stringToDisplay[letter]);
+      for (uint8_t line = 0; line < 8; line++){
+        Driver::MAX7219::SendDataToAddress(7 - line, pCharData[line], letter);
+      }
+    }
+}
+
 void LedWrapper::DisplayString(std::string stringToDisplay, uint16_t delayShift, uint16_t delayEnd){
   const auto length = stringToDisplay.length();
   uint8_t doShift;
@@ -49,7 +60,7 @@ void LedWrapper::DisplayString(std::string stringToDisplay, uint16_t delayShift,
          Driver::MAX7219::Send32Bit(static_cast<uint32_t>(test), 8 - digit);
       }
       
-      if (!((shift == 0) && (counter == 4))){
+      if (!((shift == 0) && (counter == Driver::MAX7219::NUM_MAX7219_IN_DAISY_CHAIN))){
         wait_ms(delayShift);
       }
     }

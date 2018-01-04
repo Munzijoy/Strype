@@ -29,9 +29,9 @@ CPP_DEPS :=
 SUBDIRS := \
 Application \
 Application/online-apis \
+. \
 esp8266-driver/ESP8266 \
 esp8266-driver \
-. \
 mbed-os/drivers \
 mbed-os/events \
 mbed-os/events/equeue \

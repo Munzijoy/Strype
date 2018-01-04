@@ -15,7 +15,8 @@
 namespace Driver {
     
 const std::vector<MAX7219*> MAX7219::_pMAX7219Vector = { 
-    new Driver::MAX7219(0), new Driver::MAX7219(1), new Driver::MAX7219(2), new Driver::MAX7219(3)
+    new Driver::MAX7219(0), new Driver::MAX7219(1), new Driver::MAX7219(2), new Driver::MAX7219(3),
+    new Driver::MAX7219(4), new Driver::MAX7219(5), new Driver::MAX7219(6), new Driver::MAX7219(7)
 };
 
 SPI MAX7219::_spiHardware(PC_12, PC_11, PC_10); // mosi, miso, sclk, ssel

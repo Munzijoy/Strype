@@ -4,12 +4,15 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../SystemTime.cpp \
 ../main.cpp 
 
 OBJS += \
+./SystemTime.o \
 ./main.o 
 
 CPP_DEPS += \
+./SystemTime.d \
 ./main.d 
 
 

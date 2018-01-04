@@ -29,6 +29,7 @@ public:
       return font8x8_basic[static_cast<uint8_t>(character - FONT_OFFSET)]; 
     }
     
+    static void DisplayStringSimple(std::string stringToDisplay);
     static bool IsValidCharacter(char c){ return (c > FONT_OFFSET) && (c < 128); }
 private:
     static void ClearPanel(void);

@@ -197,39 +197,14 @@ main.o: ../main.cpp ../mbed_config.h ../mbed-os/./mbed.h \
  ../mbed-os/./platform/CriticalSectionLock.h \
  ../mbed-os/./platform/DeepSleepLock.h ../mbed-os/./platform/Callback.h \
  ../mbed-os/./platform/FunctionPointer.h ../Application/LedWrapper.h \
- ../Application/LookupTable.h \
- ../Application/online-apis/ConvertUnixTimeApi.h \
- ../Application/online-apis/OnlineApiBase.h \
- ../rapidjson/include/rapidjson/document.h \
- ../rapidjson/include/rapidjson/reader.h \
- ../rapidjson/include/rapidjson/allocators.h \
- ../rapidjson/include/rapidjson/rapidjson.h \
- ../rapidjson/include/rapidjson/stream.h \
- ../rapidjson/include/rapidjson/encodings.h \
- ../rapidjson/include/rapidjson/encodedstream.h \
- ../rapidjson/include/rapidjson/memorystream.h \
- ../rapidjson/include/rapidjson/internal/meta.h \
- ../rapidjson/include/rapidjson/internal/../rapidjson.h \
- ../rapidjson/include/rapidjson/internal/stack.h \
- ../rapidjson/include/rapidjson/internal/../allocators.h \
- ../rapidjson/include/rapidjson/internal/swap.h \
- ../rapidjson/include/rapidjson/internal/strtod.h \
- ../rapidjson/include/rapidjson/internal/ieee754.h \
- ../rapidjson/include/rapidjson/internal/biginteger.h \
- ../rapidjson/include/rapidjson/internal/diyfp.h \
- ../rapidjson/include/rapidjson/internal/pow10.h \
- ../rapidjson/include/rapidjson/error/error.h \
- ../rapidjson/include/rapidjson/error/../rapidjson.h \
- ../rapidjson/include/rapidjson/internal/strfunc.h \
- ../rapidjson/include/rapidjson/internal/../stream.h \
- ../rapidjson/include/rapidjson/internal/../rapidjson.h \
- ../Application/WiFi.h ../esp8266-driver/ESP8266Interface.h \
- ../esp8266-driver/ESP8266/ESP8266.h ../mbed-os/platform/ATCmdParser.h \
+ ../Application/LookupTable.h ../Application/WiFi.h \
+ ../esp8266-driver/ESP8266Interface.h ../esp8266-driver/ESP8266/ESP8266.h \
+ ../mbed-os/platform/ATCmdParser.h \
  ../mbed-os/features/netsocket/WiFiAccessPoint.h \
  ../mbed-os/drivers/UARTSerial.h \
  ../mbed-os/features/netsocket/NetworkStack.h \
  ../mbed-os/features/netsocket/WiFiInterface.h \
- ../Application/LedWrapper.h
+ ../Application/LedWrapper.h ../SystemTime.h
 
 ../mbed_config.h:
 
@@ -745,56 +720,6 @@ main.o: ../main.cpp ../mbed_config.h ../mbed-os/./mbed.h \
 
 ../Application/LookupTable.h:
 
-../Application/online-apis/ConvertUnixTimeApi.h:
-
-../Application/online-apis/OnlineApiBase.h:
-
-../rapidjson/include/rapidjson/document.h:
-
-../rapidjson/include/rapidjson/reader.h:
-
-../rapidjson/include/rapidjson/allocators.h:
-
-../rapidjson/include/rapidjson/rapidjson.h:
-
-../rapidjson/include/rapidjson/stream.h:
-
-../rapidjson/include/rapidjson/encodings.h:
-
-../rapidjson/include/rapidjson/encodedstream.h:
-
-../rapidjson/include/rapidjson/memorystream.h:
-
-../rapidjson/include/rapidjson/internal/meta.h:
-
-../rapidjson/include/rapidjson/internal/../rapidjson.h:
-
-../rapidjson/include/rapidjson/internal/stack.h:
-
-../rapidjson/include/rapidjson/internal/../allocators.h:
-
-../rapidjson/include/rapidjson/internal/swap.h:
-
-../rapidjson/include/rapidjson/internal/strtod.h:
-
-../rapidjson/include/rapidjson/internal/ieee754.h:
-
-../rapidjson/include/rapidjson/internal/biginteger.h:
-
-../rapidjson/include/rapidjson/internal/diyfp.h:
-
-../rapidjson/include/rapidjson/internal/pow10.h:
-
-../rapidjson/include/rapidjson/error/error.h:
-
-../rapidjson/include/rapidjson/error/../rapidjson.h:
-
-../rapidjson/include/rapidjson/internal/strfunc.h:
-
-../rapidjson/include/rapidjson/internal/../stream.h:
-
-../rapidjson/include/rapidjson/internal/../rapidjson.h:
-
 ../Application/WiFi.h:
 
 ../esp8266-driver/ESP8266Interface.h:
@@ -812,3 +737,5 @@ main.o: ../main.cpp ../mbed_config.h ../mbed-os/./mbed.h \
 ../mbed-os/features/netsocket/WiFiInterface.h:
 
 ../Application/LedWrapper.h:
+
+../SystemTime.h:
